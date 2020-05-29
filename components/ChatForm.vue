@@ -1,15 +1,11 @@
 <template>
   <div class="input-container">
-    <textarea @click="login"></textarea>
+    <textarea></textarea>
   </div>
 </template>
 <script>
 export default {
-  methods: {
-    login() {
-      window.alert("ログインしろよ");
-    }
-  }
+  methods: {}
 };
 </script>
 
