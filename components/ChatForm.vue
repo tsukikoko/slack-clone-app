@@ -12,15 +12,22 @@ export default {
     };
   },
   methods: {
-    addMessage() {
+    addMessage(event) {
       const channelId = this.$route.params.id;
+      if (this.keyDownedForJPConversion(event)) {
+        return;
+      }
       db.collection("channels")
         .doc(channelId)
         .collection("messages")
         .add({ text: this.text })
         .then(() => {
-          alert("メッセージの保存に成功しました");
+          this.text = null;
         });
+    },
+    keyDownedForJPConversion(event) {
+      const codeForConversion = 229; // Enter key Code
+      return event.keyCode === codeForConversion;
     }
   }
 };
