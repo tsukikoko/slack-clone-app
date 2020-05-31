@@ -1,11 +1,28 @@
 <template>
   <div class="input-container">
-    <textarea></textarea>
+    <textarea v-model="text" v-on:keydown.enter="addMessage"></textarea>
   </div>
 </template>
 <script>
+import { db } from "~/plugins/firebase";
 export default {
-  methods: {}
+  data() {
+    return {
+      text: null
+    };
+  },
+  methods: {
+    addMessage() {
+      const channelId = this.$route.params.id;
+      db.collection("channels")
+        .doc(channelId)
+        .collection("messages")
+        .add({ text: this.text })
+        .then(() => {
+          alert("メッセージの保存に成功しました");
+        });
+    }
+  }
 };
 </script>
 
