@@ -1,20 +1,24 @@
-import firebase from 'firebase/app' // firebase 全般の機能を利用するために必要
-import 'firebase/auth' // ログイン機能を使うために読み込み
-import 'firebase/firestore' // DB機能を使うために読み込み
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 
 if (!firebase.apps.length) {
   const config = {
-    apiKey: "AIzaSyAKcfaVMYrOJcWsHOAaCBm7zSuM520dQyk",
-    authDomain: "slack-clone-app-ebae6.firebaseapp.com",
-    databaseURL: "https://slack-clone-app-ebae6.firebaseio.com",
-    projectId: "slack-clone-app-ebae6",
-    storageBucket: "slack-clone-app-ebae6.appspot.com",
-    messagingSenderId: "920094833200"
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    databaseURL: process.env.DATABASE_URL,
+    projectId: "slack-test-66594",
+    // projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.STORAGE_BUCKET,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+
+
+
   }
   firebase.initializeApp(config)
 }
 
-const db = firebase.firestore() // DBを定義
+const db = firebase.firestore()
 export {
   firebase,
   db

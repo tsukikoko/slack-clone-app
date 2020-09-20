@@ -5,31 +5,35 @@
 </template>
 <script>
 import { db } from "~/plugins/firebase";
+
 export default {
   data() {
     return {
-      text: null
+      text: null,
     };
   },
   methods: {
     addMessage(event) {
-      const channelId = this.$route.params.id;
       if (this.keyDownedForJPConversion(event)) {
         return;
       }
+      const channelId = this.$route.params.id;
       db.collection("channels")
         .doc(channelId)
         .collection("messages")
-        .add({ text: this.text })
+        .add({
+          text: this.text,
+          createdAt: new Date().getTime(),
+        })
         .then(() => {
           this.text = null;
         });
     },
     keyDownedForJPConversion(event) {
-      const codeForConversion = 229; // Enter key Code
+      const codeForConversion = 229;
       return event.keyCode === codeForConversion;
-    }
-  }
+    },
+  },
 };
 </script>
 

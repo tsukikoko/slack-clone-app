@@ -1,6 +1,12 @@
-equire('dotenv').config();
+require('dotenv').config();
 const {
-  API_KEY
+  API_KEY,
+  AUTH_DOMAIN,
+  DATABASE_URL,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDER_ID,
+  APP_ID,
 } = process.env;
 module.exports = {
   mode: 'spa',
@@ -52,7 +58,9 @@ module.exports = {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    '@nuxtjs/dotenv'
+  ],
   /*
    ** Build configuration
    */
@@ -61,5 +69,15 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-  }
+  },
+  env: {
+    API_KEY,
+    AUTH_DOMAIN,
+    DATABASE_URL,
+    PROJECT_ID,
+    STORAGE_BUCKET,
+    MESSAGING_SENDER_ID,
+    APP_ID,
+  },
+
 }

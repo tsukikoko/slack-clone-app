@@ -12,29 +12,35 @@
 <script>
 import Messages from "~/components/Messages.vue";
 import ChatForm from "~/components/ChatForm.vue";
+
 import { db } from "~/plugins/firebase";
+
 export default {
   components: {
     Messages,
-    ChatForm
+    ChatForm,
   },
   data() {
     return {
-      messages: []
+      messages: [],
     };
   },
   mounted() {
     const channelId = this.$route.params.id;
+    db.collection("channels").doc(channelId).collection("messages");
     db.collection("channels")
       .doc(channelId)
       .collection("messages")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.messages.push({ id: doc.id, ...doc.data() });
+      .orderBy("createdAt")
+      .onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          const doc = change.doc;
+          if (change.type === "added") {
+            this.messages.push({ id: doc.id, ...doc.data() });
+          }
         });
       });
-  }
+  },
 };
 </script>
 
